@@ -1,0 +1,91 @@
+Repo A + Repo B + Repo C
+        ↓
+One combined repo
+        ↓
+Keep commit history
+        ↓
+Need future updates from A/B/C
+Option 1: git merge + git read-tree
+
+Pros
+
+* Built into Git
+* No extra installation
+* Works on older systems
+* Good for one-time migration
+* Preserves commit history
+
+Cons
+
+* Update process is difficult
+* Can produce overlap errors like:
+A/.gitattributes overlaps with A/.gitattributes
+
+* Commit graph becomes messy
+* Must maintain custom scripts
+* Not a standard monorepo workflow
+* Easy to break incremental updates
+A1-A2-A3
+        \
+         M1
+        /
+M0-----/
+
+B1-B2
+     \
+      M2
+     /
+    M1
+
+Option 2: git subtree
+
+Pros
+
+* Designed for this exact problem
+* Preserves full history
+* Easy updates
+git subtree pull --prefix=A A main
+* Clean monorepo workflow
+* No overlap issues
+* Widely used
+
+Cons
+
+* Requires subtree support
+* History gets rewritten into subdirectories
+* Slightly more complex initial import
+
+Graph
+
+Cleaner:
+A history
+   \
+    subtree merge
+   /
+monorepo
+
+B history
+   \
+    subtree merge
+   /
+monorepo
+Option 3: git filter-repo + subtree
+
+Pros
+
+* Cleanest final result
+* Can keep only last N days
+* Can move files into subdirectories before import
+* Fast
+* Excellent for migrations
+
+Cons
+
+* Requires installing git-filter-repo
+* Rewrites commit SHAs
+* Harder to sync with original repos afterward
+* Better for one-time migrations than ongoing synchronization
+
+
+
+
