@@ -1,0 +1,124 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.company</groupId>
+    <artifactId>combined-repo</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-invoker-plugin</artifactId>
+                <version>3.6.0</version>
+
+                <executions>
+
+                    <!-- A -->
+                    <execution>
+                        <id>build-a</id>
+
+                        <phase>install</phase>
+
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+
+                        <configuration>
+
+                            <projectsDirectory>.</projectsDirectory>
+
+                            <pomIncludes>
+                                <pomInclude>A/pom.xml</pomInclude>
+                            </pomIncludes>
+
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
+
+                        </configuration>
+
+                    </execution>
+
+                    <!-- B -->
+                    <execution>
+                        <id>build-b</id>
+
+                        <phase>install</phase>
+
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+
+                        <configuration>
+
+                            <projectsDirectory>.</projectsDirectory>
+
+                            <pomIncludes>
+                                <pomInclude>B/pom.xml</pomInclude>
+                            </pomIncludes>
+
+                            <profiles>
+                                <profile>asev</profile>
+                            </profiles>
+
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
+
+                        </configuration>
+
+                    </execution>
+
+                    <!-- C -->
+                    <execution>
+                        <id>build-c</id>
+
+                        <phase>install</phase>
+
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+
+                        <configuration>
+
+                            <projectsDirectory>.</projectsDirectory>
+
+                            <pomIncludes>
+                                <pomInclude>C/pom.xml</pomInclude>
+                            </pomIncludes>
+
+                            <profiles>
+                                <profile>asev</profile>
+                            </profiles>
+
+                            <properties>
+                                <cuda.tool.dir>/home</cuda.tool.dir>
+                            </properties>
+
+                            <goals>
+                                <goal>clean</goal>
+                                <goal>install</goal>
+                            </goals>
+
+                        </configuration>
+
+                    </execution>
+
+                </executions>
+
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+</project>
