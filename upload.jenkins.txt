@@ -1,0 +1,54 @@
+Option 1: Call the upload job from another pipeline
+
+Suppose your upload job is named Upload_File_Job.
+  pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'make'
+            }
+        }
+
+        stage('Upload File') {
+            steps {
+                build job: 'Upload_File_Job',
+                    parameters: [
+                        string(
+                            name: 'FILE_PATH',
+                            value: "${WORKSPACE}/output.zip"
+                        )
+                    ]
+            }
+        }
+    }
+}
+
+Option 2: Upload directly in the pipeline
+
+If the manual job is just uploading an artifact somewhere (Artifactory, Nexus, S3, FTP, etc.), it’s usually better to do it directly:
+pipeline {
+    agent any
+
+    stages {
+        stage('Upload') {
+            steps {
+                sh '''
+                    curl -u user:token \
+                    -T output.zip \
+                    https://myserver/upload
+                '''
+            }
+        }
+    }
+}Option 3: Existing job uses “File Parameter”
+
+Jenkins file parameters are intended for files uploaded from a user’s browser. They are difficult to pass from another pipeline.
+  build job: 'Upload_File_Job',
+    parameters: [
+        string(name: 'FILE_PATH',
+               value: "${WORKSPACE}/myfile.zip")
+    ]
+
+  
