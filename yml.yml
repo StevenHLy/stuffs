@@ -1,0 +1,12 @@
+- echo "Creating test file"
+- echo "Hello NSCC" > test.txt
+
+- cat test.txt
+
+- |
+  curl -X POST \
+    -u "YOUR_JENKINS_USER:YOUR_JENKINS_TOKEN" \
+    -F "FileToTransfer=@test.txt" \
+    -F "DestinationDirectory=/home/s_lys" \
+    -F "EmailAddresses=your_email@company.com" \
+    "https://YOUR_JENKINS_SERVER/job/NSCCUploader/buildWithParameters"
