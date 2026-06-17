@@ -1,0 +1,18 @@
+stages:
+  - upload
+
+upload_nscc:
+  stage: upload
+
+  rules:
+    - changes:
+        - test.txt
+
+  script:
+    - |
+      curl -X POST \
+        -u "$JENKINS_USER:$JENKINS_TOKEN" \
+        -F "FileToTransfer=@test.txt" \
+        -F "DestinationDirectory=/home/s_lys" \
+        -F "EmailAddresses=you@company.com" \
+        "$JENKINS_URL/job/NSCCUploader/buildWithParameters"
