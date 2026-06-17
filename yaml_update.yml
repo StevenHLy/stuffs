@@ -1,0 +1,28 @@
+upload_nscc:
+stage: upload
+
+image: $CI_REGISTRY_IMAGE:test
+
+needs:
+- job: test
+artifacts: true
+
+rules:
+- if: ‘$CI_PIPELINE_SOURCE == “merge_request_event” && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == “main”’
+when: on_success
+
+script:
+- echo “Creating CommonModules archive”
+- tar -czf CommonModules.tar.gz CommonModules
+- ls -lh CommonModules.tar.gz
+
+- |
+  curl --fail --show-error -X POST \
+    -u "$JENKINS_USER:$JENKINS_TOKEN" \
+    -F "FileToTransfer=@CommonModules.tar.gz" \
+    -F "DestinationDirectory=/home/martin_build/files2nscc" \
+    -F "EmailAddresses=steven.l.ly@lmco.com" \
+    "https://martin.us.lmco.com/jenkins/job/LRDR/job/NSCCUploader/build"
+
+tags:
+- docker
