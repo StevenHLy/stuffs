@@ -1,0 +1,34 @@
+1. Extend DetectCore Context
+    * Add beamFrequency, bandwidth, uBeam, and vBeam to Context
+    * Support the existing SNR/JNR workflow
+    * Update evaluator(s) to consume the new beam-related inputs
+2. Unit Testing
+    * Add unit tests for the new Context fields
+    * Verify evaluator behavior with beam inputs
+    * Validate existing SNR/JNR functionality
+    * Run the DetectCore test suite (ctest)
+3. Platform Integration
+    * Merge detect-core into the main Platform branch
+    * Transition from the previous CommonModules integration
+    * Verify successful build and regression tests
+4. CI/CD Integration
+    * Integrate the GitLab pipeline with the NSCC Jenkins uploader
+    * Automate artifact upload after successful builds
+    * Validate the end-to-end CI workflow----Slide 1 – Why DetectCore?
+
+Purpose
+
+DetectCore provides a common, extensible framework for radar detection evaluation that can be reused across multiple radar programs and platforms.
+
+Why is it needed?
+
+* Standardize radar detection logic across projects
+* Reduce duplicated detection algorithms
+* Improve maintainability through modular components
+* Support rapid integration of new radar capabilities
+* Enable reusable feature extraction and evaluation logic
+
+dd
+
+--
+
