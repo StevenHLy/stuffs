@@ -46,6 +46,16 @@ public:
     /** Query whether a jammer is present. */
     bool hasJammer() const;
 
+    /** Set current system time. */
+    void setCurrentSystemTime(double value);
+
+    /** get current system time. */
+
+    double getCurrentSystemTime() const;
+
+    const SimulationObject& sim_obj() const;
+
+
     /**
      * @brief Describes the object in the simulation that we are considering for detectability.
      * 
@@ -70,6 +80,10 @@ public:
         double y_accel_;
         /// @brief  Earth-Centered-Earth-Fixed (ECEF) z-axis acceleration of the object
         double z_accel_;
+
+        /// @brief  current timestamp of the object
+        double object_time_;
+
     };
 
 private:
@@ -85,6 +99,11 @@ private:
     SimulationObject sim_object_;
 
     // @todo capture beam attributes. Center beam frequency, beamwidth, beam u & v, etc.
+
+    /// @brief current system time
+    double currentSystemTime_;
+
+
 };
 
 } // namespace detect_core
