@@ -1,0 +1,221 @@
+1. Context contains raw simulation data
+SimulationObject
+{
+    x_pos_
+    y_pos_
+    z_pos_
+
+    x_vel_
+    y_vel_
+    z_vel_
+
+    x_accel_
+    y_accel_
+    z_accel_
+}
+2. FeatureValue already supports vectors
+FeatureValue(std::vector<double>)
+do not need a new data type for extrapolated position.
+return FeatureValue({
+    newX,
+    newY,
+    newZ
+});
+3. SnrFeatureExtractor shows the exact pattern
+
+->> Impl ExtrapolateExtraxtor
+
+FeatureId ExtrapolateObjPositionExtractor::produces() const
+{
+    return FeatureId::ExtrapolatedPosition;
+}
+
+std::vector<FeatureId>
+ExtrapolateObjPositionExtractor::requires() const
+{
+    return {};
+}
+
+FeatureValue
+ExtrapolateObjPositionExtractor::extract(
+    const Context& context,
+    FeatureState&) const
+{
+auto& obj = context.simulationObject();
+
+double dt =
+    context.currentSystemTime() -
+    context.objectTime();
+
+double newX =
+    obj.x_pos_ +
+    obj.x_vel_ * dt +
+    0.5 * obj.x_accel_ * dt * dt;
+
+double newY =
+    obj.y_pos_ +
+    obj.y_vel_ * dt +
+    0.5 * obj.y_accel_ * dt * dt;
+
+double newZ =
+    obj.z_pos_ +
+    obj.z_vel_ * dt +
+    0.5 * obj.z_accel_ * dt * dt;
+
+return FeatureValue({
+    newX,
+    newY,
+    newZ
+});
+-----
+BeamEvaluator:
+auto position =
+    state.get(
+        FeatureId::ExtrapolatedPosition);
+
+const auto& xyz =
+    position.vector();
+
+double x = xyz[0];
+double y = xyz[1];
+double z = xyz[2];
+----
+setter getter in Context
+void setSimulationObject(
+    const SimulationObject& obj);
+
+const SimulationObject&
+simulationObject() const;
+----
+SimulationObject
+├── x
+├── y
+├── z
+├── x_vel
+├── y_vel
+├── z_vel
+├── x_accel
+├── y_accel
+├── z_accel
+└── objectTime      <-- timestamp of this object's state
+
+Context
+├── SimulationObject
+└── currentSystemTime   <-- "now"
+
+extractor does:
+
+deltaT = context.currentSystemTime() -
+         context.simulationObject().objectTime();
+ ----
+ update context
+ class Context
+{
+public:
+    const SimulationObject& simulationObject() const;
+
+    double currentSystemTime() const;
+
+    void setCurrentSystemTime(double);
+
+private:
+    SimulationObject sim_object_;
+
+    double currentSystemTime_;
+};
+-----
+
+return FeatureValue({x, y, z});
+
+return FeatureValue(std::vector<double>{x, y, z});
+-------
+std::unique_ptr<Evaluation>
+BeamEvaluator::evaluate(
+    const Context& ctx,
+    FeatureState& features) const
+{
+    auto value =
+        features.get(FeatureId::ExtrapolatedPosition);
+
+    // Get extrapolated x,y,z
+    auto xyz = value.vector();
+
+    double x = xyz[0];
+    double y = xyz[1];
+    double z = xyz[2];
+
+    //--------------------------------------------------
+    // Beam algorithm goes here
+    //--------------------------------------------------
+
+    bool insideBeam = false;
+
+    //
+    // TODO:
+    // Your team's beam algorithm
+    //
+
+    auto evaluation =
+        std::make_unique<Evaluation>();
+
+    evaluation->setDetected(insideBeam);
+
+    return evaluation;
+}
+
+-----
+Context setter getter
+void Context::setSimulationObject(
+    const SimulationObject& obj)
+{
+    sim_object_ = obj;
+}
+
+void Context::setCurrentSystemTime(
+    double time)
+{
+    currentSystemTime_ = time;
+}
+
+const SimulationObject&
+Context::simulationObject() const
+{
+    return sim_object_;
+}
+
+double Context::currentSystemTime() const
+{
+    return currentSystemTime_;
+}
+struct SimulationObject
+{
+    double x_pos_;
+    double y_pos_;
+    double z_pos_;
+
+    double x_vel_;
+    double y_vel_;
+    double z_vel_;
+
+    double x_accel_;
+    double y_accel_;
+    double z_accel_;
+
+    // NEW
+    double objectTime_;
+};
+class Context
+{
+private:
+    SimulationObject sim_object_;
+
+    double currentSystemTime_;
+};
+
+
+
+
+
+
+
+
