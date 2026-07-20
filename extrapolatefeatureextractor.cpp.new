@@ -1,0 +1,25 @@
+#include "CoordinateHelper.hpp"
+const auto& obj = context.simulationObject();
+
+ENU pos = CoordinateHelper::simulationObjectToENU(obj);
+
+// or
+
+ECEF pos = CoordinateHelper::simulationObjectToECEF(
+    obj,
+    context.referenceLLA());
+const auto& obj = context.simulationObject();
+
+ENU pos = CoordinateHelper::toENU(obj);
+
+double x = pos.east;
+double y = pos.north;
+double z = pos.up;
+ECEF pos = CoordinateHelper::toECEF(
+    obj,
+    context.referenceLLA());
+
+double x = pos.x;
+double y = pos.y;
+double z = pos.z;
+
