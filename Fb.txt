@@ -1,0 +1,15 @@
+Over the past two months, Jake has been supportive in helping me transition onto the Platform team. He has done a good job assigning Jira tasks that align with the team’s priorities and has helped me gradually become familiar with the Platform codebase, particularly the migration work from the unclassified side to the classified side.
+
+I appreciate that he is approachable and available to answer questions when I need clarification. As someone who is still ramping up, having well-defined tasks and guidance has made the onboarding process smoother.
+
+Going forward, it would be helpful to have more discussions around the overall platform architecture, design decisions, and long-term roadmap. Having additional context behind the assigned work would help me understand how my tasks fit into the bigger picture and enable me to contribute more effectively.
+
+-----
+
+Over the past two months, Jake has been supportive in helping me transition onto the Platform team. He has done a good job assigning Jira tasks that align with the team’s priorities and has helped me gradually become familiar with the Platform codebase, particularly the migration work from the unclassified side to the classified side.
+
+I appreciate that he is approachable and available to answer questions when I need clarification. As someone who is still ramping up, having well-defined tasks and guidance has made the onboarding process smoother.
+
+Going forward, it would be helpful to have more discussions around the overall platform architecture, design decisions, and long-term roadmap. Having additional context behind the assigned work would help me understand how my tasks fit into the bigger picture and enable me to contribute more effectively.
+
+----
