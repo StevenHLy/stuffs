@@ -1,0 +1,95 @@
+detect-core/
+├── math/
+│   ├── Kinematics.hpp
+│   └── Kinematics.cpp
+├── feature/
+│   └── ExtrapolateFeatureExtractor.cpp
+
+.hpp
+#pragma once
+
+namespace detect_core
+{
+namespace math
+{
+
+/**
+ * @brief Calculates an extrapolated position using constant acceleration.
+ *
+ * Equation:
+ *      p = p0 + v*t + 0.5*a*t²
+ *
+ * @param position Initial position.
+ * @param velocity Initial velocity.
+ * @param acceleration Constant acceleration.
+ * @param deltaTime Time elapsed in seconds.
+ *
+ * @return Extrapolated position.
+ */
+double extrapolatePosition(
+    double position,
+    double velocity,
+    double acceleration,
+    double deltaTime);
+
+} // namespace math
+} // namespace detect_core
+
+#include "Kinematics.hpp"
+
+namespace detect_core
+{
+namespace math
+{
+
+double extrapolatePosition(
+    double position,
+    double velocity,
+    double acceleration,
+    double deltaTime)
+{
+    return position
+         + velocity * deltaTime
+         + 0.5 * acceleration * deltaTime * deltaTime;
+}
+
+} // namespace math
+} // namespace detect_core
+.pp
+#include "ExtrapolateFeatureExtractor.hpp"
+
+#include "math/Kinematics.hpp"
+
+...
+
+FeatureValue ExtrapolateFeatureExtractor::extract(
+    const Context& context) const
+{
+    const auto& obj = context.simulationObject();
+
+    const double dt =
+        context.currentSystemTime() - obj.objectTime_;
+
+    const double x =
+        math::extrapolatePosition(
+            obj.x_pos_,
+            obj.x_vel_,
+            obj.x_accel_,
+            dt);
+
+    const double y =
+        math::extrapolatePosition(
+            obj.y_pos_,
+            obj.y_vel_,
+            obj.y_accel_,
+            dt);
+
+    const double z =
+        math::extrapolatePosition(
+            obj.z_pos_,
+            obj.z_vel_,
+            obj.z_accel_,
+            dt);
+
+    return FeatureValue({x, y, z});
+}
