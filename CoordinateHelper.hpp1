@@ -1,0 +1,44 @@
+#pragma once
+
+#include "SimulationObject.hpp"
+#include "CoordinateConversions.hpp"
+
+namespace detector
+{
+namespace util
+{
+
+class CoordinateHelper
+{
+public:
+
+    // Position
+    static ENU toENU(const SimulationObject& obj);
+
+    static ECEF toECEF(
+        const SimulationObject& obj,
+        const LLA& referenceLLA);
+
+    static LLA toLLA(
+        const SimulationObject& obj,
+        const LLA& referenceLLA);
+
+    // Velocity
+    static ENU velocityToENU(
+        const SimulationObject& obj);
+
+    static ECEF velocityToECEF(
+        const SimulationObject& obj,
+        const LLA& referenceLLA);
+
+    // Acceleration
+    static ENU accelerationToENU(
+        const SimulationObject& obj);
+
+    static ECEF accelerationToECEF(
+        const SimulationObject& obj,
+        const LLA& referenceLLA);
+};
+
+} // namespace util
+} // namespace detector
