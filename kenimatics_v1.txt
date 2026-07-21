@@ -1,0 +1,82 @@
+namespace detect_core::math
+{
+    double squaredDistance(double a, double b);
+
+    double angleError(double deltaU, double deltaV);
+
+    bool inRange(
+        double range,
+        double rangeStart,
+        double rangeStop);
+
+    bool withinBeamRadius(
+        double distanceSquared,
+        double effectiveRadiusSquared);
+}
+.cpp
+double math::squaredDistance(double a, double b)
+{
+    const double delta = a - b;
+    return delta * delta;
+}
+
+double math::angleError(double deltaU, double deltaV)
+{
+    return std::sqrt(deltaU * deltaU + deltaV * deltaV);
+}
+
+bool math::inRange(
+    double range,
+    double rangeStart,
+    double rangeStop)
+{
+    return range >= rangeStart &&
+           range <= rangeStop;
+}
+
+bool math::withinBeamRadius(
+    double distanceSquared,
+    double effectiveRadiusSquared)
+{
+    return distanceSquared <= effectiveRadiusSquared;
+}
+BeamEval.cpp
+const auto& beam = context.inBeamObject();
+
+// Compute beam offsets
+const double deltaU = beam.u - beam.rxSteerU;
+const double deltaV = beam.v - beam.rxSteerV;
+
+// Compute squared distances
+const double distanceSqdU = deltaU * deltaU;
+const double distanceSqdV = deltaV * deltaV;
+
+// Compute angle error (optional, for logging/debugging)
+const double angleError =
+    std::sqrt(distanceSqdU + distanceSqdV);
+
+// Check range
+const bool inRange =
+    math::inRange(
+        beam.r,
+        beam.rangeStart,
+        beam.rangeStop);
+
+// Check U and V beam limits
+const bool inBeamU =
+    math::withinBeamRadius(
+        distanceSqdU,
+        beam.effBeamRadSqdU);
+
+const bool inBeamV =
+    math::withinBeamRadius(
+        distanceSqdV,
+        beam.effBeamRadSqdV);
+
+// Final result
+const bool inBeam =
+    inRange &&
+    inBeamU &&
+    inBeamV;
+
+return std::make_unique<BeamResult>(inBeam);
