@@ -1,0 +1,175 @@
+File
+
+Recommendation
+
+Why
+
+DataLogger/include/DataLogger/DataLogger.hpp
+
+Add std::string_view overloads for logging APIs
+
+Avoid unnecessary std::string allocations and support string literals efficiently.
+
+DataLogger/include/DataLogger/DataLogger.hpp
+
+Add log(LogLevel level, std::string_view)
+
+Simplifies callers that already have a runtime log level.
+
+DataLogger/include/DataLogger/DataLogger.hpp
+
+Mark factory functions [[nodiscard]]
+
+Prevent callers from accidentally ignoring returned logger instances.
+
+DataLogger/include/DataLogger/TextLogger.hpp
+
+Mark single-argument constructors explicit
+
+Prevent unintended implicit conversions.
+
+DataLogger/include/DataLogger/TextLogger.hpp
+
+Default or noexcept destructor if applicable
+
+Makes exception guarantees explicit and improves optimization.
+
+DataLogger/include/DataLogger/TraceLogger.hpp
+
+Use consistent public API with TextLogger
+
+Easier to learn and maintain the library.
+
+DataLogger/include/DataLogger/DXRLogger.hpp
+
+Document thread-safety guarantees
+
+Consumers should know whether concurrent logging is supported.
+
+DataLogger/src/DataLogger.cpp
+
+Replace std::unique_ptr<T>(new T(...)) with std::make_unique<T>()
+
+Cleaner, exception-safe, modern C++ style.
+
+DataLogger/src/DataLogger.cpp
+
+Replace mutex-based initialization with std::call_once
+
+Removes unnecessary locking from the hot logging path after initialization.
+
+DataLogger/src/DataLogger.cpp
+
+Review global mutable state (g_config, logger instances)
+
+Globals complicate testing and dynamic reconfiguration.
+
+DataLogger/src/DataLogger.cpp
+
+Verify configure() and shutdown() are thread-safe
+
+Prevent races if another thread is logging during reconfiguration.
+
+DataLogger/src/TextLogger.cpp
+
+Make auto-flush configurable
+
+Some applications prefer throughput over immediate durability.
+
+DataLogger/src/TextLogger.cpp
+
+Prevent recursive logging if write failures occur
+
+Avoid infinite recursion if logging an internal logger error.
+
+DataLogger/src/TraceLogger.cpp
+
+Keep implementation consistent with TextLogger
+
+Reduces maintenance cost and behavioral differences.
+
+DataLogger/src/DXRLogger.cpp
+
+Gracefully handle unavailable DXR backend
+
+The logger should continue operating or fail predictably.
+
+DataLogger/src/writers/FileWriter.cpp
+
+Document buffer-size selection
+
+Explains performance decisions for future maintainers.
+
+DataLogger/src/writers/FileWriter.cpp
+
+Clarify whether flush() implies fsync()
+
+std::ofstream::flush() does not guarantee data is on disk.
+
+DataLogger/src/writers/FileWriter.cpp
+
+Enable stream exceptions or consistently check I/O state
+
+Prevent silent write failures.
+
+DataLogger/src/sync/ProcessLock.cpp
+
+Add O_CLOEXEC when opening lock files
+
+Prevent file descriptor leaks after exec().
+
+DataLogger/src/sync/ProcessLock.cpp
+
+Check all POSIX return values (open, fcntl, close)
+
+Improve robustness and diagnostics.
+
+DataLogger/src/sync/ProcessLock.cpp
+
+Include strerror(errno) in error messages
+
+Makes troubleshooting much easier.
+
+DataLogger/tests/
+
+Add stress tests with many threads
+
+Validate thread safety under load.
+
+DataLogger/tests/
+
+Add multi-process logging tests
+
+Verify ProcessLock behavior across processes.
+
+DataLogger/tests/
+
+Add failure tests (disk full, permission denied)
+
+Ensure graceful handling of I/O errors.
+
+DataLogger/benchmarks/
+
+Document benchmark environment and results
+
+Makes future performance regressions measurable.
+
+README.md
+
+Add architecture diagram and logging flow
+
+Helps new developers understand the design quickly.
+
+README.md
+
+Document thread safety, process safety, and configuration lifecycle
+
+Reduces misuse by library consumers.
+  Top 5 changes I would make before an SDR
+
+1. Replace all raw new expressions with std::make_unique.
+2. Replace mutex-based initialization with std::call_once.
+3. Review the lifecycle of global logger objects for thread safety.
+4. Add std::string_view overloads to public logging APIs.
+5. Improve error reporting in ProcessLock and FileWriter by checking every system call and including errno details.
+  
