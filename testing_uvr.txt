@@ -1,0 +1,112 @@
+TEST_F(EstimatedUvrFeatureExtractorTest,  ExtrapolateVectorReturnsNonZeroValues_WithNearMatcher)
+{
+    EstimatedUvrFeatureExtractor extractor;
+    Context ctx;  // Default context
+    FeatureRegistry registry;
+    registry.registerExtractor(FeatureId::ESTIMATED_UVR,
+        std::unique_ptr<FeatureExtractor>(new EstimatedUvrFeatureExtractor()));
+
+    auto& obj = ctx.simulationObject();  
+    auto& beam = ctx.radarBeam();  
+
+    detect_core::Context::SimulationObject& mutable_obj = const_cast<detect_core::Context::SimulationObject&>(obj);
+    detect_core::Context::RadarBeam& mutable_radar_beam = const_cast<detect_core::Context::RadarBeam&>(beam);
+
+    mutable_obj.object_time_ = 1.0;          // seconds
+    mutable_obj.r_           = 20.50e+09;        // metres
+    mutable_obj.r_dot_       = -15e+03;        // m/s
+    mutable_obj.r_ddot_      = 35.0*2;         // m/s²
+    mutable_obj.u_           =  -35.789;
+    mutable_obj.u_dot_       =   0.0025;
+    mutable_obj.u_ddot_      =   1.1234;
+    mutable_obj.v_           = -0.357;
+    mutable_obj.v_dot_       =  4.123;
+    mutable_obj.v_ddot_      =  -8.005;
+    mutable_radar_beam.transmit_time_ = 1.02;  
+
+    ctx.setSimulationObject(mutable_obj);   // copies or moves the fully‑populated object
+    ctx.setRadarBeam(mutable_radar_beam);   // copies or moves the fully‑populated object
+
+   
+    ctx.setExtrapTimeThreshold(1);
+
+    FeatureState state(ctx, registry);
+    FeatureValue value = extractor.extract(ctx, state);
+
+    std::cout << "BEFORE:Returned values : ";
+    for (double v : value.vector()) std::cout << v << ' ';
+    std::cout << '\n';
+
+    // --------------------------------------------------------------
+    //  Compute the expected values (same math as the extractor)
+    // --------------------------------------------------------------
+    constexpr double c = detect_core::SPEED_OF_LIGHT;
+
+    double dt1 = mutable_radar_beam.transmit_time_ -  mutable_obj.object_time_;
+
+    std::cout << "delta time: " << dt1 <<"\n";
+
+
+    double dt1_sq = dt1 * dt1;
+
+    double range_tx =  mutable_obj.r_ + dt1 *  mutable_obj.r_dot_
+                    + 0.5 * dt1_sq *  mutable_obj.r_ddot_;
+
+    double denom = 1.0 -  mutable_obj.r_dot_ / c - dt1 *  mutable_obj.r_ddot_ / c;
+    double r_out = range_tx / denom;
+
+    double dt2 = r_out / c;
+    double dt  = dt1 + dt2;
+    double dt_sq = dt * dt;
+
+    double u_out =  mutable_obj.u_ + dt *  mutable_obj.u_dot_ + 0.5 * dt_sq *  mutable_obj.u_ddot_;
+
+    double v_out =  mutable_obj.v_ + dt *  mutable_obj.v_dot_ + 0.5 * dt_sq *  mutable_obj.v_ddot_;
+
+    double r_dot_out =  mutable_obj.r_dot_ +  mutable_obj.r_ddot_ * dt;
+
+    std::cout << "u_out " <<u_out <<"\n";
+    std::cout << "v_out " <<v_out <<"\n";
+    std::cout << "r_out " <<r_out <<"\n";
+    std::cout << "r_dot_out " <<r_dot_out <<"\n";
+
+    constexpr double kTol = 1e-4;   // tolerance for floating‑point comparison
+
+    EXPECT_NEAR(mutable_obj.u_, u_out,      kTol) << "u_out mismatch";
+    EXPECT_NEAR(mutable_obj.v_, v_out,      kTol) << "v_out mismatch";
+    EXPECT_NEAR(mutable_obj.r_, r_out,      kTol) << "r_out mismatch";
+    EXPECT_NEAR(mutable_obj.r_dot_, r_dot_out,  kTol) << "r_dot_out mismatch";
+
+
+BEFORE:Returned values : -35.789 -0.357 2.05e+10 -15000 
+delta time: 0.02
+u_out 2592.12
+v_out -18442.8
+r_out 2.0499e+10
+r_dot_out -10212.2
+/home/vagrant/platform/common-modules/detect-core/tests/EstimatedUvrFeatureExtractorTest.cpp:115: Failure
+The difference between mutable_obj.u_ and u_out is 2627.9043487241333, which exceeds kTol, where
+mutable_obj.u_ evaluates to -35.789000000000001,
+u_out evaluates to 2592.1153487241331, and
+kTol evaluates to 0.0001.
+u_out mismatch
+/home/vagrant/platform/common-modules/detect-core/tests/EstimatedUvrFeatureExtractorTest.cpp:116: Failure
+The difference between mutable_obj.v_ and v_out is 18442.411225537227, which exceeds kTol, where
+mutable_obj.v_ evaluates to -0.35699999999999998,
+v_out evaluates to -18442.768225537227, and
+kTol evaluates to 0.0001.
+v_out mismatch
+/home/vagrant/platform/common-modules/detect-core/tests/EstimatedUvrFeatureExtractorTest.cpp:117: Failure
+The difference between mutable_obj.r_ and r_out is 1025862.5219955444, which exceeds kTol, where
+mutable_obj.r_ evaluates to 20500000000,
+r_out evaluates to 20498974137.478004, and
+kTol evaluates to 0.0001.
+r_out mismatch
+/home/vagrant/platform/common-modules/detect-core/tests/EstimatedUvrFeatureExtractorTest.cpp:118: Failure
+The difference between mutable_obj.r_dot_ and r_dot_out is 4787.8052324607197, which exceeds kTol, where
+mutable_obj.r_dot_ evaluates to -15000,
+r_dot_out evaluates to -10212.19476753928, and
+kTol evaluates to 0.0001.
+r_dot_out mismatch
+
+}
