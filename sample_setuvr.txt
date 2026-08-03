@@ -1,0 +1,17 @@
+mutable_obj.object_time_ = 1.0;
+
+mutable_obj.r_      = 1000.0;    // 1 km
+mutable_obj.r_dot_  = -20.0;     // m/s
+mutable_obj.r_ddot_ = 2.0;       // m/s²
+
+mutable_obj.u_      = 0.10;
+mutable_obj.u_dot_  = 0.02;
+mutable_obj.u_ddot_ = 0.01;
+
+mutable_obj.v_      = -0.20;
+mutable_obj.v_dot_  = 0.03;
+mutable_obj.v_ddot_ = -0.02;
+
+mutable_radar_beam.transmit_time_ = 1.02;
+
+ctx.setExtrapTimeThreshold(0.01);   // force extrapolation
