@@ -1,0 +1,172 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] mixin-maven-plugin: Merging Mixins
+[[1;34mINFO[m] mixin-maven-plugin: Mixins were merged
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m---------------< [0;36mcom.tsg.platform:common-modules-native[0;1m >---------------[m
+[[1;34mINFO[m] [1mBuilding common-modules CMake Build 1.0.0-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ pom ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:2.5:clean[m [1m(default-clean)[m @ [36mcommon-modules-native[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/vagrant/platform/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-dependency-plugin:3.6.1:unpack[m [1m(Retrieve Dependency Rules)[m @ [36mcommon-modules-native[0;1m ---[m
+[[1;34mINFO[m] Skipping plugin execution
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-enforcer-plugin:1.4.1:enforce[m [1m(enforce)[m @ [36mcommon-modules-native[0;1m ---[m
+[[1;34mINFO[m] Skipping Rule Enforcement.
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-dependency-plugin:3.6.1:unpack-dependencies[m [1m(unpack-dependencies)[m @ [36mcommon-modules-native[0;1m ---[m
+[[1;34mINFO[m] Expanding: /home/vagrant/.m2/repository/com/lmco/sysserv/interfaces/cxx-interfaces-cm-install/6.3.0/cxx-interfaces-cm-install-6.3.0-Redhawk8.5.tar.gz into /home/vagrant/platform/target/dependencies
+[[1;34mINFO[m] Expanding: /home/vagrant/.m2/repository/com/lmco/sysserv/platform-distro/6.3.0/platform-distro-6.3.0-redhawk8.5-dds6.1.2.23.tar.gz into /home/vagrant/platform/target/dependencies
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mexec-maven-plugin:1.6.0:exec[m [1m(cmake-configure)[m @ [36mcommon-modules-native[0;1m ---[m
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- DXR found:
+--   Include dir: /home/vagrant/platform/target/dependencies/U-SYSSERV-CRX-6.3.0/linux-os8.5-gcc8.5.0-64b-dds6.1.2.23/dxr/include
+--   DE API library: /home/vagrant/platform/target/dependencies/U-SYSSERV-CRX-6.3.0/linux-os8.5-gcc8.5.0-64b-dds6.1.2.23/dxr/lib/libdxr_deapi.so
+--   CC API library: /home/vagrant/platform/target/dependencies/U-SYSSERV-CRX-6.3.0/linux-os8.5-gcc8.5.0-64b-dds6.1.2.23/dxr/lib/libdxr_ccapi.so
+--   Common library: /home/vagrant/platform/target/dependencies/U-SYSSERV-CRX-6.3.0/linux-os8.5-gcc8.5.0-64b-dds6.1.2.23/dxr/lib/libdxr_common.so
+--   GENLOG library: /home/vagrant/platform/target/dependencies/U-SYSSERV-CRX-6.3.0/linux-os8.5-gcc8.5.0-64b-dds6.1.2.23/genlog/lib/libgenlog.so
+--   ARC Common library: /home/vagrant/platform/target/dependencies/U-SYSSERV-CRX-6.3.0/linux-os8.5-gcc8.5.0-64b-dds6.1.2.23/arc_common/lib/libarc_common.so
+-- HDF5 not found - H5Logger will throw on construction
+-- Found GTest: /usr/lib/x86_64-linux-gnu/cmake/GTest/GTestConfig.cmake (found version "1.11.0")  
+-- DXR API test program will be built (run manually)
+-- DXR example program will be built
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/vagrant/platform/target/cmake-build
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mexec-maven-plugin:1.6.0:exec[m [1m(cmake-build)[m @ [36mcommon-modules-native[0;1m ---[m
+[  1%] Building CXX object CMakeFiles/dxr_api_test.dir/DataLogger/tests/dxr_api_test.cpp.o
+[  2%] Building CXX object CMakeFiles/coordinate_conversions.dir/coordinate-conversions/src/CoordinateConversions.cpp.o
+[  3%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/TraceLogger.cpp.o
+[  4%] Building CXX object CMakeFiles/detect_sim.dir/detect-sim/src/Context.cpp.o
+[  4%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/DataLogger.cpp.o
+[  4%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/Result.cpp.o
+[  5%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/TextLogger.cpp.o
+[  5%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/DxrLogger.cpp.o
+[  6%] Building CXX object CMakeFiles/detect_sim.dir/detect-sim/src/Config.cpp.o
+[  6%] Linking CXX shared library libcoordinate_conversions.so
+[  6%] Built target coordinate_conversions
+[  7%] Linking CXX executable dxr_api_test
+[  7%] Building CXX object CMakeFiles/detect_sim.dir/detect-sim/src/Model.cpp.o
+[  7%] Building CXX object CMakeFiles/coordinate-conversions-tests.dir/coordinate-conversions/src/CoordinateConversions.xUnit.cpp.o
+[  8%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/Config.cpp.o
+[  9%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/H5Schema.cpp.o
+[  9%] Built target dxr_api_test
+[ 10%] Building CXX object CMakeFiles/coordinate_conversions_bench.dir/coordinate-conversions/src/CoordinateConversions_benchmark.cpp.o
+[ 11%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/H5Record.cpp.o
+[ 13%] Building CXX object CMakeFiles/detect_sim.dir/detect-sim/src/ModelAssembler.cpp.o
+[ 13%] Building CXX object CMakeFiles/detect_sim.dir/detect-sim/src/impl/DefaultTruthExtrapolator.cpp.o
+[ 13%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/H5Logger.cpp.o
+[ 14%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/Model.cpp.o
+[ 14%] Building CXX object CMakeFiles/detect_sim.dir/detect-sim/src/impl/DefaultRangeChecker.cpp.o
+[ 15%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/writers/H5Writer.cpp.o
+[ 16%] Building CXX object CMakeFiles/detect_sim.dir/detect-sim/src/impl/DefaultAngleChecker.cpp.o
+[ 16%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/Evaluation.cpp.o
+[ 17%] Linking CXX shared library libdetect_sim.so
+[ 18%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/features/FeatureRegistry.cpp.o
+[ 19%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/LogConfig.cpp.o
+[ 19%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/LogLevel.cpp.o
+[ 19%] Built target detect_sim
+[ 20%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/features/FeatureState.cpp.o
+[ 21%] Building CXX object CMakeFiles/detect_sim_user_test.dir/detect-sim/tests/ApiTest.cpp.o
+[ 22%] Linking CXX executable coordinate_conversions_bench
+[ 22%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/features/FeatureValue.cpp.o
+[ 23%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/LogEntry.cpp.o
+[ 24%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/feature-extraction/impl/snr/SnrFeatureExtractor.cpp.o
+[ 24%] Built target coordinate_conversions_bench
+[ 25%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/writers/FileWriter.cpp.o
+[ 25%] Building CXX object CMakeFiles/detect_sim_bench.dir/detect-sim/tests/benchmarks/InBeamBenchmark.cpp.o
+[ 25%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/formatting/TextFormatter.cpp.o
+[ 26%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/feature-extraction/impl/jnr/JnrFeatureExtractor.cpp.o
+[ 27%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/formatting/BinaryFormatter.cpp.o
+[ 28%] Linking CXX executable coordinate-conversions-tests
+[ 28%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/feature-extraction/impl/estimated-position/EstimatedPosFeatureExtractor.cpp.o
+[ 29%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/sync/ProcessLock.cpp.o
+[ 30%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/feature-extraction/impl/angle-error/AngleErrorFeatureExtractor.cpp.o
+[ 30%] Built target coordinate-conversions-tests
+[ 30%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/dxr/DxrErrorHandler.cpp.o
+[ 31%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/dxr/DxrBufferPoolManager.cpp.o
+[ 32%] Building CXX object CMakeFiles/data_logger.dir/DataLogger/src/dxr/DxrDataExtractor.cpp.o
+[ 32%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/detection-evaluation/impl/SnrThresholdEvaluator.cpp.o
+[ 33%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/feature-extraction/impl/estimated-uvr/EstimatedUvrFeatureExtractor.cpp.o
+[ 33%] Linking CXX executable detect_sim_user_test
+[ 34%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/detection-evaluation/impl/AngleEvaluator.cpp.o
+[ 35%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/detection-evaluation/impl/AngleEvaluation.cpp.o
+[ 35%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/detection-evaluation/impl/RangeEvaluator.cpp.o
+[ 36%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/detection-evaluation/impl/RangeEvaluation.cpp.o
+[ 37%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/detection-evaluation/impl/SnrThresholdEvaluation.cpp.o
+[ 38%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/pipeline/Pipeline.cpp.o
+[ 39%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/Context.cpp.o
+[ 39%] Building CXX object CMakeFiles/detect_core.dir/detect-core/src/pipeline/PipelineAssembler.cpp.o
+[ 39%] Built target detect_sim_user_test
+[ 40%] Linking CXX shared library libdata_logger.so
+[ 41%] Linking CXX executable detect_sim_bench
+[ 41%] Built target data_logger
+[ 41%] Built target detect_sim_bench
+[ 43%] Building CXX object CMakeFiles/data_logger_user_test.dir/DataLogger/tests/DataLoggerUserTest.cpp.o
+[ 43%] Building CXX object CMakeFiles/data_logger_demo.dir/DataLogger/examples/basic_datalogger_demo.cpp.o
+[ 43%] Building CXX object CMakeFiles/data_logger_bench.dir/DataLogger/tests/benchmarks/DataLoggerBenchmark.cpp.o
+[ 43%] Building CXX object CMakeFiles/dxr_example.dir/DataLogger/examples/dxr_example.cpp.o
+[ 44%] Building CXX object CMakeFiles/h5_example.dir/DataLogger/examples/h5_example.cpp.o
+[ 45%] Linking CXX executable dxr_example
+[ 46%] Linking CXX executable h5_example
+[ 47%] Linking CXX shared library libdetect_core.so
+[ 47%] Linking CXX executable data_logger_demo
+[ 48%] Built target detect_core
+[ 48%] Linking CXX executable data_logger_bench
+[ 49%] Linking CXX executable data_logger_user_test
+[[1;31mERROR[m] Command execution failed.
+[1;31morg.apache.commons.exec.ExecuteException[m: [1;31mProcess exited with an error: 2 (Exit value: 2)[m
+    [1mat[m org.apache.commons.exec.DefaultExecutor.executeInternal ([1mDefaultExecutor.java:404[m)
+    [1mat[m org.apache.commons.exec.DefaultExecutor.execute ([1mDefaultExecutor.java:166[m)
+    [1mat[m org.codehaus.mojo.exec.ExecMojo.executeCommandLine ([1mExecMojo.java:804[m)
+    [1mat[m org.codehaus.mojo.exec.ExecMojo.executeCommandLine ([1mExecMojo.java:751[m)
+    [1mat[m org.codehaus.mojo.exec.ExecMojo.execute ([1mExecMojo.java:313[m)
+    [1mat[m org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo ([1mDefaultBuildPluginManager.java:137[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:210[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:156[m)
+    [1mat[m org.apache.maven.lifecycle.internal.MojoExecutor.execute ([1mMojoExecutor.java:148[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:117[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject ([1mLifecycleModuleBuilder.java:81[m)
+    [1mat[m org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build ([1mSingleThreadedBuilder.java:56[m)
+    [1mat[m org.apache.maven.lifecycle.internal.LifecycleStarter.execute ([1mLifecycleStarter.java:128[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:305[m)
+    [1mat[m org.apache.maven.DefaultMaven.doExecute ([1mDefaultMaven.java:192[m)
+    [1mat[m org.apache.maven.DefaultMaven.execute ([1mDefaultMaven.java:105[m)
+    [1mat[m org.apache.maven.cli.MavenCli.execute ([1mMavenCli.java:957[m)
+    [1mat[m org.apache.maven.cli.MavenCli.doMain ([1mMavenCli.java:289[m)
+    [1mat[m org.apache.maven.cli.MavenCli.main ([1mMavenCli.java:193[m)
+    [1mat[m jdk.internal.reflect.NativeMethodAccessorImpl.invoke0 ([1mNative Method[m)
+    [1mat[m jdk.internal.reflect.NativeMethodAccessorImpl.invoke ([1mNativeMethodAccessorImpl.java:62[m)
+    [1mat[m jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke ([1mDelegatingMethodAccessorImpl.java:43[m)
+    [1mat[m java.lang.reflect.Method.invoke ([1mMethod.java:566[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced ([1mLauncher.java:282[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.launch ([1mLauncher.java:225[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode ([1mLauncher.java:406[m)
+    [1mat[m org.codehaus.plexus.classworlds.launcher.Launcher.main ([1mLauncher.java:347[m)
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;31mBUILD FAILURE[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  14.929 s
+[[1;34mINFO[m] Finished at: 2026-08-19T02:29:24Z
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;31mERROR[m] Failed to execute goal [32morg.codehaus.mojo:exec-maven-plugin:1.6.0:exec[m [1m(cmake-build)[m on project [36mcommon-modules-native[m: [1;31mCommand execution failed.[m: Process exited with an error: 2 (Exit value: 2) -> [1m[Help 1][m
+[[1;31mERROR[m] 
+[[1;31mERROR[m] To see the full stack trace of the errors, re-run Maven with the [1m-e[m switch.
+[[1;31mERROR[m] Re-run Maven using the [1m-X[m switch to enable full debug logging.
+[[1;31mERROR[m] 
+[[1;31mERROR[m] For more information about the errors and possible solutions, please read the following articles:
+[[1;31mERROR[m] [1m[Help 1][m http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
